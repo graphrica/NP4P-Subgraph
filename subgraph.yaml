@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ERC721
+    network: mainnet
+    source:
+      address: "0x4628A523D0Bf5C45A8a7116b26F5AA828c9aCe54"
+      startBlock: 14284166
+      abi: ERC721
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - OwnershipTransferred
+        - Transfer
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/erc-721.ts

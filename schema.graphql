@@ -1,0 +1,27 @@
+type Account @entity {
+  id: ID!
+  address: Bytes!
+  collectibles: [Collectible!] @derivedFrom(field: "owner")
+}
+
+type Collectible @entity {
+  id: ID!
+  tokenId: BigInt!
+  creator: Account!
+  owner: Account!
+  collection: Collection!
+  descriptorUri: String!
+
+  #Timestamps
+  modified: BigInt
+  created: BigInt!
+  removed: BigInt
+}
+
+type Collection @entity {
+  id: ID!
+  collectionName: String
+  collectionSymbol: String
+  collectionAddress: Bytes!
+  collectibles: [Collectible!] @derivedFrom(field: "collection")
+}
